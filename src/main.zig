@@ -60,5 +60,9 @@ export fn _start() callconv(.Naked) noreturn {
 fn kmain() callconv(.C) void {
     console.initialize();
     console.puts("Hello Zig Kernel!");
+    halt();
+}
+
+fn halt() void {
     while (true) {}
 }
