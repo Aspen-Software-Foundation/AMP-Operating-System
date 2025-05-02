@@ -60,10 +60,10 @@ export fn _start() callconv(.Naked) noreturn {
 fn kmain() callconv(.C) void {
     console.initialize();
 
-    console.puts("Welcome to the Aspen Software Foundation Operating System\n");
+    console.puts("Welcome to the Aspen Multi-Platform Operating System!\n");
 
     gdt.gdt_init();
-    console.puts(">>> GDT initialized\n");
+    console.puts(">>> GDT initialized.\n");
 
     halt();
 }
