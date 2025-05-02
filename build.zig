@@ -34,4 +34,3 @@ pub fn build(b: *std.Build) void {
     const kernel_step = b.step("kernel", "Build the kernel");
     kernel_step.dependOn(&kernel.step);
 }
-

@@ -53,6 +53,16 @@ pub fn clear() void {
 
 pub fn putCharAt(c: u8, new_color: u8, x: usize, y: usize) void {
     const index = y * VGA_WIDTH + x;
+
+    if (c == '\n') {
+        column = 0;
+        row += 1;
+        if (row == VGA_HEIGHT) {
+            row = 0;
+        }
+        return;
+    }
+
     buffer[index] = vgaEntry(c, new_color);
 }
 
