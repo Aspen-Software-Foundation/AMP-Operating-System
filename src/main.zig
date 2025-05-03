@@ -63,7 +63,7 @@ fn kmain() callconv(.C) void {
     console.puts("Welcome to the Aspen Multi-Platform Operating System!\n");
 
     gdt.gdt_init();
-    console.puts(">>> GDT initialized.\n");
+    console.puts("[ INFO ]  GDT initialized\n");
 
     halt();
 }
