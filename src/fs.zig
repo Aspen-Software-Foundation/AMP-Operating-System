@@ -107,9 +107,9 @@ fn print_node_recursive(node: Inode, indent_level: usize) void {
         .directory => |d| {
             // Print directory name. Root directory name is "/", others are relative.
             if (d == root_directory) {
-                console.puts("[ INFO ]   / (directory)\n");
+                console.puts("/ (directory)\n");
             } else {
-                console.printf("[ INFO ]   + {s} (directory)\n", .{d.name});
+                console.printf("+ {s} (directory)\n", .{d.name});
             }
 
             // Recursively print children
