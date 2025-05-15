@@ -126,10 +126,10 @@ fn print_node_recursive(node: Inode, indent_level: usize) void {
 
 pub fn print_fs_tree() void {
     if (root_directory == null) {
-        console.puts("[ ERR ]   Filesystem not initialized.\n");
+        console.puts("[ ERROR ]   Filesystem not initialized.\n");
         return;
     }
-    console.puts("[ INFO ]   Filesystem Tree:\n");
+    console.puts("[ RESULT ]   Filesystem Tree:\n");
     print_node_recursive(Inode{ .directory = root_directory.? }, 0);
 }
 

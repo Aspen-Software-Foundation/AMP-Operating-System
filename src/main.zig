@@ -10,12 +10,14 @@ pub fn kmain() callconv(.C) void {
     console.initialize(framebuffer_request.response.?.getFramebuffers()[0]);
 
     console.puts("Welcome to the Aspen Multi-Platform Operating System!\n");
+    console.puts("Made with love, from Aspen.\n\n");
+
     gdt.gdt_init();
     console.puts("[ INFO ]   GDT initialized.\n");
 
     // Initialize filesystem
     fs.fs_init() catch |err| {
-        console.printf("[ ERR ]   Filesystem initialization failed: {s}\n", .{@errorName(err)});
+        console.printf("[ ERROR ]   Filesystem initialization failed: {s}\n", .{@errorName(err)});
         halt();
     };
     console.puts("[ INFO ]   Filesystem initialized.\n");
@@ -37,7 +39,7 @@ pub fn kmain() callconv(.C) void {
             _ = created_dir_node; // Suppress unused variable warning
             // console.printf("Successfully created directory: {s}\n", .{path_to_create}); // Optional success message
         } else |err| {
-            console.printf("[ ERR ]   Failed to create directory '{s}': {s}\n", .{ path_to_create, @errorName(err) });
+            console.printf("[ ERROR ]   Failed to create directory '{s}': {s}\n", .{ path_to_create, @errorName(err) });
             // We could halt here, or just print the error and continue
         }
     }
