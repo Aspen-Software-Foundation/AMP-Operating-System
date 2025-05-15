@@ -260,7 +260,7 @@ pub fn printf(comptime format: []const u8, args: anytype) void {
 fn panic(msg: []const u8) noreturn {
     // A very simple panic: try to print to console, then halt.
     // This assumes putChar/puts is somewhat functional.
-    puts("\nKERNEL PANIC: ");
+    puts("\n[ FATAL ERROR ]   KERNEL PANIC: ");
     puts(msg);
     puts("\n");
     while (true) {
