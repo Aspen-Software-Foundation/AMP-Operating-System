@@ -1,0 +1,52 @@
+The Aspen Multi-Platform Operating System supports colored text output on the console using ANSI escape sequences. This lets you display messages with colors for better readability — for example, highlighting errors in red or information in white.
+This document explains how to use and modify the existing colored text mechanism in the source code.
+
+How Colored Text Works:
+The console uses ANSI escape codes embedded in strings to change text color. The escape codes are sent as part of formatted output to the console framebuffer.
+
+This is how to change the color of a string of text:
+
+console.printf("{s}{s}Colored Text{s}", .{ CSI, COLOR, RESET });
+                                           ^^^  ^^^^^  ^^^^^ 
+The "{s}" is for a string argument, as seen here ^
+
+You can also add a custom color code by choosing from the options below, and putting them into the "COLOR" argument. For example: ".{CSI, RED, RESET}"
+
+
+ANSI Color Codes (included):
+
+const BLACK = "30m";
+const RED = "31m";
+const GREEN = "32m";
+const YELLOW = "33m";
+const BLUE = "34m";
+const MAGENTA = "35m";
+const CYAN = "36m";
+const WHITE = "37m";
+
+Background:
+const BLACK_BG = "40m";
+const RED_BG = "41m";
+const GREEN_BG = "42m";
+const YELLOW_BG = "43m";
+const BLUE_BG = "44m";
+const MAGENTA_BG = "45m";
+const CYAN_BG = "46m";
+const WHITE_BG = "47m";
+const BRIGHT_BLACK_BG = "100m";
+const BRIGHT_RED_BG = "101m";
+const BRIGHT_GREEN_BG = "102m";
+const BRIGHT_YELLOW_BG = "103m";
+const BRIGHT_BLUE_BG = "104m";
+const BRIGHT_MAGENTA_BG = "105m";
+const BRIGHT_CYAN_BG = "106m";
+const BRIGHT_WHITE_BG = "107m";
+
+
+Example: 
+
+console.printf("{s}{s}Colored Text{s}", .{ CSI, RED, RESET });
+                                                ^^^
+                                                This turns the color of the text red. (duh)
+                                                Also, when dealing with colors, you need to put "console.printf" instead of "console.puts" (for some reason, idk, ask HPsaucii.)
+                                                

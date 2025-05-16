@@ -4,6 +4,38 @@ const ArrayList = std.ArrayList;
 const StringHashMap = std.StringHashMap;
 const console = @import("console"); // For printing the tree
 
+const BLACK = "30m";
+const RED = "31m";
+const GREEN = "32m";
+const YELLOW = "33m";
+const BLUE = "34m";
+const MAGENTA = "35m";
+const CYAN = "36m";
+const WHITE = "37m";
+const BRIGHT_WHITE = "97m"; // <-- Added
+
+// Background:
+const BLACK_BG = "40m";
+const RED_BG = "41m";
+const GREEN_BG = "42m";
+const YELLOW_BG = "43m";
+const BLUE_BG = "44m";
+const MAGENTA_BG = "45m";
+const CYAN_BG = "46m";
+const WHITE_BG = "47m";
+const BRIGHT_BLACK_BG = "100m";
+const BRIGHT_RED_BG = "101m";
+const BRIGHT_GREEN_BG = "102m";
+const BRIGHT_YELLOW_BG = "103m";
+const BRIGHT_BLUE_BG = "104m";
+const BRIGHT_MAGENTA_BG = "105m";
+const BRIGHT_CYAN_BG = "106m";
+const BRIGHT_WHITE_BG = "107m";
+
+//Reset:
+const CSI = "\x1b[";
+const RESET = "\x1b[0m";
+
 // For now, we'll use a FixedBufferAllocator for simplicity.
 // In a real OS, memory management would be much more complex.
 // Define a static buffer for our filesystem's memory.
@@ -129,7 +161,7 @@ pub fn print_fs_tree() void {
         console.puts("[ ERROR ]   Filesystem not initialized.\n");
         return;
     }
-    console.puts("[ RESULT ]   Filesystem Tree:\n");
+    console.printf("{s}{s}[ RESULT ]{s}   Filesystem Tree:\n", .{ CSI, GREEN, RESET });
     print_node_recursive(Inode{ .directory = root_directory.? }, 0);
 }
 
@@ -304,4 +336,7 @@ test "create directory error cases" {
 
     // TODO: Test FsError.NotADirectory if we had file creation first.
     // e.g. create_file("/file.txt"), then try create_directory("/file.txt/oops")
+
+    // ^^^ We should implement file creation and deletion after this. -Yazin Tantawi
+
 }

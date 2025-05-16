@@ -7,32 +7,66 @@ const hcf = @import("hcf").hcf;
 
 export var framebuffer_request: limine.FramebufferRequest linksection(".limine_requests") = .{};
 
-const CSI = "\x1b[";
+//Foreground:
+
+const BLACK = "30m";
 const RED = "31m";
+const GREEN = "32m";
+const YELLOW = "33m";
+const BLUE = "34m";
+const MAGENTA = "35m";
+const CYAN = "36m";
+const WHITE = "37m";
+const BRIGHT_WHITE = "97m"; // <-- Added
+
+// Background:
+const BLACK_BG = "40m";
+const RED_BG = "41m";
+const GREEN_BG = "42m";
+const YELLOW_BG = "43m";
 const BLUE_BG = "44m";
+const MAGENTA_BG = "45m";
+const CYAN_BG = "46m";
+const WHITE_BG = "47m";
+const BRIGHT_BLACK_BG = "100m";
+const BRIGHT_RED_BG = "101m";
+const BRIGHT_GREEN_BG = "102m";
+const BRIGHT_YELLOW_BG = "103m";
+const BRIGHT_BLUE_BG = "104m";
+const BRIGHT_MAGENTA_BG = "105m";
+const BRIGHT_CYAN_BG = "106m";
+const BRIGHT_WHITE_BG = "107m";
+
+//Reset:
+const CSI = "\x1b[";
 const RESET = "\x1b[0m";
 
 pub fn kmain() callconv(.C) void {
     console.initialize(framebuffer_request.response.?.getFramebuffers()[0]);
 
     console.puts("Welcome to the Aspen Multi-Platform Operating System!\n");
-    console.puts("Made with love, from Aspen.\n\n");
+    console.printf("Made with love, from {s}{s}Aspen{s}.\n\n", .{ CSI, RED, RESET }); //Change the "Aspen" text color to red
 
     gdt.gdt_init();
-    console.puts("[ INFO ]   GDT initialized.\n");
+    console.printf("{s}{s}[ INFO ]{s}   GDT initialized.\n", .{ CSI, CYAN, RESET });
 
     // Initialize filesystem
     fs.fs_init() catch |err| {
         console.printf("[ ERROR ]   Filesystem initialization failed: {s}\n", .{@errorName(err)});
         hcf();
     };
-    console.puts("[ INFO ]   Filesystem initialized.\n");
+    console.printf("{s}{s}[ INFO ]{s}   Filesystem initialized.\n", .{ CSI, CYAN, RESET });
 
     // Create some test directories
-    console.puts("[ INFO ]   Creating test directories...\n");
+    console.printf("{s}{s}[ INFO ]{s}   Creating test directories...\n", .{ CSI, CYAN, RESET });
     const paths_to_create = [_][]const u8{
+        "/user",
         "/home",
-        "/home/user",
+        "/home/Documents",
+        "/home/Downloads",
+        "/home/Pictures",
+        "/home/Music",
+        "/home/Videos",
         "/etc",
         "/var",
         "/var/log",
@@ -49,7 +83,7 @@ pub fn kmain() callconv(.C) void {
             // We could halt here, or just print the error and continue
         }
     }
-    console.puts("[ INFO ]   Test directory creation complete.\n");
+    console.printf("{s}{s}[ INFO ]{s}   Test directory creation complete.\n", .{ CSI, CYAN, RESET });
 
     // Print the filesystem tree
     fs.print_fs_tree();

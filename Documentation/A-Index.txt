@@ -1,0 +1,69 @@
+    _                                                                  
+   / \   ___ _ __   ___ _ __                                           
+  / _ \ / __| '_ \ / _ \ '_ \                                          
+ / / \ \\__ \ |_) |  __/ | | |                                         
+/_/   \_\___/ .__/ \___|_| |_|                                         
+ __  __     |_| _   _       ____  _       _    __                      
+|  \/  |_   _| | |_(_)     |  _ \| | __ _| |_ / _| ___  _ __ _ __ ___  
+| |\/| | | | | | __| |_____| |_) | |/ _` | __| |_ / _ \| '__| '_ ` _ \ 
+| |  | | |_| | | |_| |_____|  __/| | (_| | |_|  _| (_) | |  | | | | | |
+|_|__|_|\__,_|_|\__|_|     |_|  _|_|\__,_|\__|_|  \___/|_|  |_| |_| |_|
+ / _ \ _ __   ___ _ __ __ _| |_(_)_ __   __ _                          
+| | | | '_ \ / _ \ '__/ _` | __| | '_ \ / _` |                         
+| |_| | |_) |  __/ | | (_| | |_| | | | | (_| |                         
+ \___/| .__/ \___|_|  \__,_|\__|_|_| |_|\__, |                         
+/ ___||_|  _ ___| |_ ___ _ __ ___       |___/                          
+\___ \| | | / __| __/ _ \ '_ ` _ \                                     
+ ___) | |_| \__ \ ||  __/ | | | | |                                    
+|____/ \__, |___/\__\___|_| |_| |_|    
+
+Document Version: 1.0.0.0
+Operating System Version: /\\\DEVELOPMENT///\
+
+
+The Aspen Multi-Platform Operating System, Built by the Aspen Software Foundation.
+
+This Operating System was made to fix the problem of Windows' files (.exe, .dll, .pe, etc.) being incompatible with Unix/Linux-like Operating systems (including Unix and Linux).
+This folder is meant to give documentation on how this Operating System works inside and out.
+Have fun digging through everything. Stay safe, stay Aspen.
+
+A huge thank you to our developers for helping very much with this project in its early stages:
+
+HPsaucii (Holly Powell, Lead Developer)
+NekoDev (Raphael Weirauch, Lead Developer)
+DJTechelmet (Jaydie, Developer) (Preferred not to use real name.)
+
+Thank you for your massive contributions to this project.
+Signed,
+-Yazin Tantawi, Founder of the Aspen Software Foundation.
+
+
+Table of Contents:
+
+
+ \///ALREADY MADE:\\\/
+1. Kernel Architecture ............... Documents/B-architecture.txt  
+2. Building the Kernel ............... Documents/C-building.txt
+3. Changing text color ............... Doucments/L-change-color.txt
+
+\///TO BE MADE:\\\/
+3. Boot Process ...................... Documents/D-boot.txt  
+4. Memory Management ................. Documents/E-memory.txt  
+5. Process Scheduling ................ Documents/F-scheduling.txt  
+6. System Calls ...................... Documents/G-syscalls.txt  
+7. Drivers & Hardware ................ Documents/H-drivers.txt  
+8. Developer Guide ................... Documents/I-development.txt  
+9. API Reference ..................... Documents/J-api.txt  
+10. Troubleshooting .................. Documents/M-troubleshooting.txt  
+11. Roadmap and TODO ................. Documents/N-roadmap.txt
+
+We 100% endorse the Open-Source'ing of projects such as ours, and we recommend you to do the same if you are making a project.
+
+
+
+License:
+As stated in our CodeBerg (https://codeberg.org/Aspen-Software-Foundation/AMP-Operating-System) and our GitHub (https://github.com/Aspen-Software-Foundation/AMP-Operating-System) repositories, this Operating System is licensed under GPLv3. 
+Visit https://www.gnu.org/licenses/gpl-3.0.en.html to find out more about this license. 
+
+
+P.S: Thank you for your support, people. It really does matter to us.

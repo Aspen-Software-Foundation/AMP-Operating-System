@@ -34,8 +34,8 @@ var text_rows: usize = 0; // Number of character rows on screen
 // --- Console State ---
 var cursor_row: usize = 0;
 var cursor_col: usize = 0;
-var fg_color: u32 = 0xFF_FF_FF_FF; // White (ARGB)
-var bg_color: u32 = 0xFF_00_00_00; // Black (ARGB, alpha FF for opaque)
+var fg_color: u32 = 0xFF_FF_FF_FF; // White (ARGB)  This can be edited by you! (This changes the entire text color)
+var bg_color: u32 = 0xFF_00_00_00; // Black (ARGB, alpha FF for opaque). This can be edited by you!  (This changes the entire background color)
 
 // --- ANSI State
 
@@ -45,7 +45,7 @@ var ansi_params: [8]u8 = undefined;
 var ansi_param_count: usize = 0;
 var ansi_current: u8 = 0;
 
-const ansi_palette_fg: [8]u32 = .{
+const ansi_palette_fg: [16]u32 = .{
     0xFF_00_00_00, // 30 black
     0xFF_FF_00_00, // 31 red
     0xFF_00_FF_00, // 32 green
@@ -54,8 +54,16 @@ const ansi_palette_fg: [8]u32 = .{
     0xFF_FF_00_FF, // 35 magenta
     0xFF_00_FF_FF, // 36 cyan
     0xFF_FF_FF_FF, // 37 white
+    0xFF_80_80_80, // 90 bright black (gray)
+    0xFF_FF_55_55, // 91 bright red
+    0xFF_55_FF_55, // 92 bright green
+    0xFF_FF_FF_55, // 93 bright yellow
+    0xFF_55_55_FF, // 94 bright blue
+    0xFF_FF_55_FF, // 95 bright magenta
+    0xFF_55_FF_FF, // 96 bright cyan
+    0xFF_FF_FF_FF, // 97 bright white
 };
-const ansi_palette_bg: [8]u32 = ansi_palette_fg;
+const ansi_palette_bg: [16]u32 = ansi_palette_fg;
 
 // --- Helper: Draw a single pixel ---
 fn drawPixel(x: usize, y: usize, color: u32) void {

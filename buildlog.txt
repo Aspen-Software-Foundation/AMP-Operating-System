@@ -1,0 +1,11 @@
+install
++- install kernel
+   +- zig build-exe kernel Debug x86_64-freestanding-none failure
+error: the following command terminated unexpectedly:
+/home/yazin-tantawi/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/linux-x86_64-0.14.0/zig build-exe -ODebug -mcmodel kernel -target x86_64-freestanding-none -mcpu baseline-avx-avx2-mmx+soft_float-sse-sse2 --dep hcf --dep main --dep limine -Mroot=/home/yazin-tantawi/Documents/AMP-Operating-System/src/boot/limine.zig -Mhcf=/home/yazin-tantawi/Documents/AMP-Operating-System/src/arch/x86_64/hcf.zig --dep limine --dep console --dep fs --dep hcf --dep gdt -Mmain=/home/yazin-tantawi/Documents/AMP-Operating-System/src/main.zig --dep config -Mlimine=/home/yazin-tantawi/.cache/zig/p/limine_zig-0.0.0-1TjwQOl6AACYbbHZxh6lCxJ-WMBUoz03PUuBZhpKlxQs/src/root.zig --dep limine --dep font -Mconsole=/home/yazin-tantawi/Documents/AMP-Operating-System/src/console.zig --dep console -Mfs=/home/yazin-tantawi/Documents/AMP-Operating-System/src/fs.zig -Mgdt=/home/yazin-tantawi/Documents/AMP-Operating-System/src/arch/x86_64/gdt.zig -Mconfig=/home/yazin-tantawi/Documents/AMP-Operating-System/.zig-cache/c/313b291929901e41e5def9299a774d6d/options.zig -Mfont=/home/yazin-tantawi/Documents/AMP-Operating-System/PSF-Fonts/default8x16.psf --cache-dir /home/yazin-tantawi/Documents/AMP-Operating-System/.zig-cache --global-cache-dir /home/yazin-tantawi/.cache/zig --name kernel --script /home/yazin-tantawi/Documents/AMP-Operating-System/.zig-cache/kernel-x86_64.ld --zig-lib-dir /home/yazin-tantawi/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/linux-x86_64-0.14.0/lib/ --listen=- 
+Build Summary: 1/4 steps succeeded; 1 failed
+install transitive failure
++- install kernel transitive failure
+   +- zig build-exe kernel Debug x86_64-freestanding-none failure
+error: the following build command failed with exit code 1:
+/home/yazin-tantawi/Documents/AMP-Operating-System/.zig-cache/o/4e4ef239bf2e954c5c6d0da08429b63b/build /home/yazin-tantawi/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/linux-x86_64-0.14.0/zig /home/yazin-tantawi/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/linux-x86_64-0.14.0/lib /home/yazin-tantawi/Documents/AMP-Operating-System /home/yazin-tantawi/Documents/AMP-Operating-System/.zig-cache /home/yazin-tantawi/.cache/zig --seed 0xc8bfc4af -Zb10fc65e068ee919
