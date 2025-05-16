@@ -65,8 +65,8 @@ pub fn kmain() callconv(.C) void {
         "/home/Documents",
         "/home/Downloads",
         "/home/Pictures",
-        "/home/Music",
         "/home/Videos",
+        "/home/Music",
         "/etc",
         "/var",
         "/var/log",
@@ -90,3 +90,4 @@ pub fn kmain() callconv(.C) void {
 
     hcf();
 }
+
