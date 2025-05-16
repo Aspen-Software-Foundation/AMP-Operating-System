@@ -1,10 +1,16 @@
 const gdt = @import("./arch/x86_64/gdt.zig");
-const fs = @import("./fs.zig");
-const console = @import("./console.zig");
+const fs = @import("fs");
+const console = @import("console");
 const builtin = @import("builtin");
 const limine = @import("limine");
+const hcf = @import("hcf").hcf;
 
 export var framebuffer_request: limine.FramebufferRequest linksection(".limine_requests") = .{};
+
+const CSI = "\x1b[";
+const RED = "31m";
+const BLUE_BG = "44m";
+const RESET = "\x1b[0m";
 
 pub fn kmain() callconv(.C) void {
     console.initialize(framebuffer_request.response.?.getFramebuffers()[0]);
@@ -18,7 +24,7 @@ pub fn kmain() callconv(.C) void {
     // Initialize filesystem
     fs.fs_init() catch |err| {
         console.printf("[ ERROR ]   Filesystem initialization failed: {s}\n", .{@errorName(err)});
-        halt();
+        hcf();
     };
     console.puts("[ INFO ]   Filesystem initialized.\n");
 
@@ -48,12 +54,5 @@ pub fn kmain() callconv(.C) void {
     // Print the filesystem tree
     fs.print_fs_tree();
 
-    halt();
-}
-
-fn halt() void {
-    asm volatile ("cli");
-    while (true) {
-        asm volatile ("hlt");
-    }
+    hcf();
 }

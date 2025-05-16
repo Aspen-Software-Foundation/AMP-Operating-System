@@ -2,7 +2,7 @@ const std = @import("std");
 const Allocator = std.mem.Allocator;
 const ArrayList = std.ArrayList;
 const StringHashMap = std.StringHashMap;
-const console = @import("./console.zig"); // For printing the tree
+const console = @import("console"); // For printing the tree
 
 // For now, we'll use a FixedBufferAllocator for simplicity.
 // In a real OS, memory management would be much more complex.

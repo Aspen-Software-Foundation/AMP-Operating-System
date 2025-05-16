@@ -80,18 +80,9 @@ pub fn gdt_init() void {
 }
 
 pub fn load_gdt() void {
-    // Call assembly function to load GDT
     asm volatile (
-    // lgdt expects a 64-bit memory operand in 64-bit mode
         \\lgdt (%[ptr])
-
-        // In 64-bit mode, you typically only need to reload SS and then CS.
-        // The data segment registers (DS, ES, FS, GS) are usually set to
-        // a data segment selector that points to a descriptor with a base of 0
-        // and a limit of 0xFFFFFFFF, and they don't need to be reloaded in the
-        // same way as in 32-bit protected mode.
-
-        \\mov $0x10, %%ax // Kernel Data Segment Selector (index 2 * 8 = 0x10)
+        \\mov $0x10, %%ax
         \\mov %%ax, %%ds
         \\mov %%ax, %%es
         \\mov %%ax, %%fs

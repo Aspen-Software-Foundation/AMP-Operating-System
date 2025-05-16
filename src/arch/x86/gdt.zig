@@ -59,7 +59,6 @@ pub fn gdt_init() void {
 }
 
 pub fn load_gdt() void {
-    // Call assembly function to load GDT
     asm volatile (
         \\lgdt (%[ptr])
         \\movw $0x10, %%ax

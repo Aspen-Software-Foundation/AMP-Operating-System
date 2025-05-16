@@ -17,8 +17,5 @@ pub export fn _start() callconv(.C) void {
     if (!base_revision.isSupported()) {
         hcf();
     }
-
     kmain();
-
-    hcf();
 }

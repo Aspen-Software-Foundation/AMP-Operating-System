@@ -3,7 +3,7 @@ const fmt = @import("std").fmt;
 const limine = @import("limine");
 
 // --- Font Data and Structures ---
-const default_font_bytes = @embedFile("font.psf"); // ADJUST PATH AS NEEDED
+const default_font_bytes = @embedFile("font");
 
 const Psf1Magic = enum(u16) {
     MAGIC0 = 0x36,
@@ -36,6 +36,26 @@ var cursor_row: usize = 0;
 var cursor_col: usize = 0;
 var fg_color: u32 = 0xFF_FF_FF_FF; // White (ARGB)
 var bg_color: u32 = 0xFF_00_00_00; // Black (ARGB, alpha FF for opaque)
+
+// --- ANSI State
+
+const AnsiState = enum { None, SawEsc, SawCsi };
+var ansi_state: AnsiState = .None;
+var ansi_params: [8]u8 = undefined;
+var ansi_param_count: usize = 0;
+var ansi_current: u8 = 0;
+
+const ansi_palette_fg: [8]u32 = .{
+    0xFF_00_00_00, // 30 black
+    0xFF_FF_00_00, // 31 red
+    0xFF_00_FF_00, // 32 green
+    0xFF_FF_FF_00, // 33 yellow
+    0xFF_00_00_FF, // 34 blue
+    0xFF_FF_00_FF, // 35 magenta
+    0xFF_00_FF_FF, // 36 cyan
+    0xFF_FF_FF_FF, // 37 white
+};
+const ansi_palette_bg: [8]u32 = ansi_palette_fg;
 
 // --- Helper: Draw a single pixel ---
 fn drawPixel(x: usize, y: usize, color: u32) void {
@@ -141,6 +161,70 @@ fn scrollOneLine() void {
 
 // --- Put Character ---
 pub fn putChar(c: u8) void {
+    // ——— ANSI CSI parser ———
+    if (ansi_state != .None) {
+        // we are inside an ESC[ … m sequence
+        switch (ansi_state) {
+            .None => {},
+            .SawEsc => {
+                if (c == '[') {
+                    ansi_state = .SawCsi;
+                    ansi_param_count = 0;
+                    ansi_current = 0;
+                } else {
+                    // false alarm, dump
+                    ansi_state = .None;
+                }
+            },
+            .SawCsi => {
+                if (c >= '0' and c <= '9') {
+                    ansi_current = ansi_current * 10 + (c - '0');
+                } else if (c == ';') {
+                    ansi_params[ansi_param_count] = @as(u8, ansi_current);
+                    ansi_param_count += 1;
+                    ansi_current = 0;
+                } else if (c == 'm') {
+                    // final param
+                    ansi_params[ansi_param_count] = @as(u8, ansi_current);
+                    ansi_param_count += 1;
+                    // apply them
+                    for (ansi_params[0..ansi_param_count]) |p| {
+                        if (p == 0) {
+                            // reset
+                            fg_color = 0xFF_FF_FF_FF;
+                            bg_color = 0xFF_00_00_00;
+                        } else if (p >= 30 and p <= 37) {
+                            fg_color =
+                                ansi_palette_fg[@intCast(p - 30)];
+                        } else if (p >= 40 and p <= 47) {
+                            bg_color =
+                                ansi_palette_bg[@intCast(p - 40)];
+                        } else if (p >= 90 and p <= 97) {
+                            // bright fg (if you want)
+                            // map 90..97 → 31..38 or your own brights
+                            fg_color =
+                                ansi_palette_fg[@intCast(p - 90)];
+                        } else if (p >= 100 and p <= 107) {
+                            bg_color =
+                                ansi_palette_bg[@intCast(p - 100)];
+                        }
+                        // ignore others
+                    }
+                    ansi_state = .None;
+                } else {
+                    // unrecognized, drop out
+                    ansi_state = .None;
+                }
+            },
+        }
+        return; // consume the byte, don’t draw it
+    }
+
+    // Look for a new ESC:
+    if (c == 0x1B) {
+        ansi_state = .SawEsc;
+        return;
+    }
     if (char_height == 0) return; // Font not initialized
 
     if (c == '\n') {

@@ -49,11 +49,13 @@ pub fn build(b: *std.Build) !void {
         .cpu_features_add = enabled,
     };
 
-    // const entry_path = switch (arch) {
-    //     .x86 => b.path("src/arch/x86/entry.zig"),
-    //     .x86_64 => b.path("src/arch/x86_64/entry.zig"),
-    //     else => unreachable,
-    // };
+    const hcf = b.addModule("hcf", .{
+        .root_source_file = b.path(switch (arch) {
+            .x86 => "src/arch/x86/hcf.zig",
+            .x86_64 => "src/arch/x86_64/hcf.zig",
+            else => unreachable,
+        }),
+    });
 
     const entry_path = b.path("src/boot/limine.zig");
 
@@ -64,45 +66,48 @@ pub fn build(b: *std.Build) !void {
             .target = b.resolveTargetQuery(tq),
             .optimize = optimize,
             .code_model = .kernel,
+            .imports = &.{.{ .name = "hcf", .module = hcf }},
         }),
+    });
+
+    const gdt = b.addModule("gdt", .{
+        .root_source_file = b.path(switch (arch) {
+            .x86 => "src/arch/x86/gdt.zig",
+            .x86_64 => "src/arch/x86_64/gdt.zig",
+            else => unreachable,
+        }),
+    });
+
+    const font = b.addModule("font", .{
+        .root_source_file = b.path("PSF-Fonts/default8x16.psf"),
+    });
+
+    const console = b.addModule("console", .{
+        .root_source_file = b.path("src/console.zig"),
+        .imports = &.{
+            .{ .name = "limine", .module = limine_mod },
+            .{ .name = "font", .module = font },
+        },
+    });
+
+    const fs = b.addModule("fs", .{
+        .root_source_file = b.path("src/fs.zig"),
+        .imports = &.{.{ .name = "console", .module = console }},
     });
 
     const main = b.addModule("main", .{
         .root_source_file = b.path("src/main.zig"),
         .imports = &.{
             .{ .name = "limine", .module = limine_mod },
+            .{ .name = "console", .module = console },
+            .{ .name = "fs", .module = fs },
+            .{ .name = "hcf", .module = hcf },
+            .{ .name = "gdt", .module = gdt },
         },
     });
 
     kernel.root_module.addImport("main", main);
     kernel.root_module.addImport("limine", limine_mod);
-
-    const x86 = struct {
-        gdt: *std.Build.Module,
-    }{
-        .gdt = b.addModule("x86-gdt", .{
-            .root_source_file = b.path("src/arch/x86/gdt.zig"),
-        }),
-    };
-
-    const x86_64 = struct {
-        gdt: *std.Build.Module,
-    }{
-        .gdt = b.addModule("x86_64-gdt", .{
-            .root_source_file = b.path("src/arch/x86_64/gdt.zig"),
-        }),
-    };
-
-    switch (arch) {
-        .x86 => {
-            kernel.root_module.addImport("gdt", x86.gdt);
-        },
-        .x86_64 => {
-            kernel.root_module.addImport("gdt", x86_64.gdt);
-            add_module(b, kernel, "hcf", "hcf", "src/arch/x86_64/hcf.zig");
-        },
-        else => unreachable,
-    }
 
     const LD = linker.ScriptDef{
         .output_format = "elf64-x86-64",

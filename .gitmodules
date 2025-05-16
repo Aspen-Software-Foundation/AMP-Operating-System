@@ -1,0 +1,8 @@
+[submodule "limine"]
+	path = limine
+	url = https://github.com/limine-bootloader/limine.git
+	branch = v9.x-binary
+[submodule "PSF-Fonts"]
+	path = PSF-Fonts
+	url = https://github.com/ercanersoy/PSF-Fonts.git
+	branch = master
