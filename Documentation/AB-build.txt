@@ -1,0 +1,4 @@
+The Aspen Multi-Platform Operating System (AMPOS) supports a user-friendly way of compiling the Operating System, and that is via the run.sh file included.
+You can just go into the terminal, cd to the project folder, and type "./run.sh" to compile the OS and give you a bootable ISO file.
+Note: You can boot this file in a VM (such as Qemu) like so:
+"sudo qemu-system-x86_64 -cdrom image.iso"

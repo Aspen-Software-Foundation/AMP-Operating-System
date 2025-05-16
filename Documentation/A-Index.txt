@@ -42,9 +42,10 @@ Table of Contents:
 
 
  \///ALREADY MADE:\\\/
-1. Kernel Architecture ............... Documents/B-architecture.txt  
-2. Building the Kernel ............... Documents/C-building.txt
-3. Changing text color ............... Doucments/L-change-color.txt
+1. Building the Operating System ..... Documents/AB-building.txt
+2. Kernel Architecture ............... Documents/B-architecture.txt  
+3. Building the Kernel ............... Documents/C-building.txt
+4. Changing text color ............... Doucments/L-change-color.txt
 
 \///TO BE MADE:\\\/
 3. Boot Process ...................... Documents/D-boot.txt  
