@@ -337,6 +337,6 @@ test "create directory error cases" {
     // TODO: Test FsError.NotADirectory if we had file creation first.
     // e.g. create_file("/file.txt"), then try create_directory("/file.txt/oops")
 
-    // ^^^ We should implement file creation and deletion after this. -Yazin Tantawi
+    // ^^^ We should implement file creation and deletion after this. -Yazin Tantawiz
 
 }
