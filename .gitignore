@@ -1,4 +1,4 @@
 .zig-cache/
 zig-out/
+iso_root/
 image.iso
-iso_root
