@@ -3,6 +3,7 @@ set -eu pipefail
 
 mkdir -p iso_root/boot/limine
 mkdir -p iso_root/EFI/BOOT
+cp assets/limine.conf iso_root/boot/limine/
 cp limine/limine-bios.sys limine/limine-*-cd.bin iso_root/boot/limine/
 cp limine/BOOTIA32.EFI limine/BOOTX64.EFI iso_root/EFI/BOOT/
 
