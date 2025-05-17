@@ -34,8 +34,10 @@ var text_rows: usize = 0; // Number of character rows on screen
 // --- Console State ---
 var cursor_row: usize = 0;
 var cursor_col: usize = 0;
-var fg_color: u32 = 0xFF_FF_FF_FF; // White (ARGB)  This can be edited by you! (This changes the entire text color)
-var bg_color: u32 = 0xFF_00_00_00; // Black (ARGB, alpha FF for opaque). This can be edited by you!  (This changes the entire background color)
+const DEFAULT_BG_COLOR: u32 = 0x00_14_1A_21;
+const DEFAULT_FG_COLOR: u32 = 0xFF_FF_FF_FF;
+var fg_color: u32 = DEFAULT_FG_COLOR; // White (ARGB)  This can be edited by you! (This changes the entire text color)
+var bg_color: u32 = DEFAULT_BG_COLOR; // Black (ARGB, alpha FF for opaque). This can be edited by you!  (This changes the entire background color)
 
 // --- ANSI State
 
@@ -199,8 +201,8 @@ pub fn putChar(c: u8) void {
                     for (ansi_params[0..ansi_param_count]) |p| {
                         if (p == 0) {
                             // reset
-                            fg_color = 0xFF_FF_FF_FF;
-                            bg_color = 0xFF_00_00_00;
+                            fg_color = DEFAULT_FG_COLOR;
+                            bg_color = DEFAULT_BG_COLOR;
                         } else if (p >= 30 and p <= 37) {
                             fg_color =
                                 ansi_palette_fg[@intCast(p - 30)];
