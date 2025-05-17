@@ -29,7 +29,6 @@ Have fun digging through everything. Stay safe, stay Aspen.
 
 A huge thank you to our developers for helping very much with this project in its early stages:
 
-HPsaucii (Holly Powell, Lead Developer)
 NekoDev (Raphael Weirauch, Lead Developer)
 DJTechelmet (Jaydie, Developer) (Preferred not to use real name.)
 
