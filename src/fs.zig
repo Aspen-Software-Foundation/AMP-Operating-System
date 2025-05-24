@@ -158,7 +158,7 @@ fn print_node_recursive(node: Inode, indent_level: usize) void {
 
 pub fn print_fs_tree() void {
     if (root_directory == null) {
-        console.puts("[ ERROR ]   Filesystem not initialized.\n");
+        console.printf("{s}{s}[ ERROR ]{s}   Filesystem not initialized.\n", .{ CSI, RED, RESET });
         return;
     }
     console.printf("{s}{s}[ RESULT ]{s}   Filesystem Tree:\n", .{ CSI, GREEN, RESET });
@@ -337,6 +337,6 @@ test "create directory error cases" {
     // TODO: Test FsError.NotADirectory if we had file creation first.
     // e.g. create_file("/file.txt"), then try create_directory("/file.txt/oops")
 
-    // ^^^ We should implement file creation and deletion after this. -Yazin Tantawiz
+    // ^^^ We should implement file creation and deletion after this. -Yazin Tantawi
 
 }
