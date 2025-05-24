@@ -108,15 +108,18 @@ pub fn kmain() callconv(.C) void {
     // Print the filesystem tree
     fs.print_fs_tree();
 
-    console.printf("\n{s}{s}[ INFO ]{s} System initialization complete. Entering idle loop...\n", .{ CSI, GREEN, RESET });
+    console.printf("\n{s}{s}[ INFO ]{s} System initialization complete. Entering idle loop...\n", .{ CSI, CYAN, RESET });
 
     // Instead of immediately halting, let's loop for a bit to see if interrupts work
     var counter: u32 = 0;
-    while (counter < 1000000) {
+    while (counter < 1000000000) {
         counter += 1;
         // Small delay to prevent overwhelming the system
-        if (counter % 100000 == 0) {
-            console.printf("{s}{s}[ DEBUG ]{s} Heartbeat: {d}\n", .{ CSI, MAGENTA, RESET, counter / 100000 });
+        if (counter % 100000000 == 0) {
+            console.printf("{s}{s}[ DEBUG ]{s} Heartbeat: {d}\n", .{ CSI, MAGENTA, RESET, counter / 100000000});
         }
     }
+    console.printf("{s}{s}[ WARNING ]{s} Shutting down system... \n", .{ CSI, YELLOW, RESET});
+    hcf(); // Halt the system after the loop completes
+
 }
